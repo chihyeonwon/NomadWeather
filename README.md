@@ -91,6 +91,64 @@ day: {
     fontSize: 60,
 ```
 
+### weather안의 day View를 여러개 생성하고 weather를 ScrollView로 변경
 
+스크롤기능을 제공하는 API인 ScrollView를 Import 해준다.
+```javascript
+import {ScrollView} from 'react-native'
+```
+
+그리고 weather를 ScrollView로 감싸준다.
+```javascript
+<ScrollView style={styles.weather}>
+        <View style={styles.day}>
+          <Text style={styles.temp}>27</Text>
+          <Text style={styles.desc}>Sunny</Text>
+        </View>
+        <View style={styles.day}>
+          <Text style={styles.temp}>27</Text>
+          <Text style={styles.desc}>Sunny</Text>
+        </View>
+        <View style={styles.day}>
+          <Text style={styles.temp}>27</Text>
+          <Text style={styles.desc}>Sunny</Text>
+        </View>
+        <View style={styles.day}>
+          <Text style={styles.temp}>27</Text>
+          <Text style={styles.desc}>Sunny</Text>
+        </View>
+        <View style={styles.day}>
+          <Text style={styles.temp}>27</Text>
+          <Text style={styles.desc}>Sunny</Text>
+        </View>
+        <View style={styles.day}>
+          <Text style={styles.temp}>27</Text>
+          <Text style={styles.desc}>Sunny</Text>
+        </View>
+      </ScrollView>
+    </View>
+```
+
+스크롤을 수직이 아닌 수평으로 만들어주는 horizontal 속성을 ScrollView에 적용
+```javascript
+<ScrollView horizontal style={styles.weather}>
+```
+
+#### ScrollView 사용시 생기는 문제점
+
+weather와 day의 flex 값을 삭제한다. (ScrollView가 ScrollView의 Childern보다 커야하기 때문)
+```javascript
+weather:{
+    backgroundColor:'blue',
+  },
+  day: {
+    alignItems:'center',
+  },
+```
+
+ScrollView의 style을 contentContainerStyle로 수정한다.
+```javascript
+<ScrollView horizontal contentContainerStyle={styles.weather}>
+```
      
   
