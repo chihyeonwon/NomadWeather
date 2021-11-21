@@ -8,7 +8,7 @@ export default function App() {
       <View style={styles.city}>
         <Text style={styles.cityName}>Seoul</Text>
       </View>
-      <ScrollView style={styles.weather}>
+      <ScrollView horizontal contentContainerStyle={styles.weather}>
         <View style={styles.day}>
           <Text style={styles.temp}>27</Text>
           <Text style={styles.desc}>Sunny</Text>
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     backgroundColor: "tomato",
   },
   city:{
-    flex: 1,
+    flex: 1.2,
     justifyContent: 'center',
     alignItems:'center',
   },  
@@ -53,10 +53,9 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   weather:{
-    flex: 3 ,
+    backgroundColor:'blue',
   },
   day: {
-    justifyContent:'center',
     alignItems:'center',
   },
   temp: {
