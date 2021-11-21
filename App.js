@@ -9,7 +9,10 @@ export default function App() {
         <Text style={styles.cityName}>Seoul</Text>
       </View>
       <View style={styles.weather}>
-        <Text></Text>
+        <View style={styles.day}>
+          <Text>27</Text>
+        <Text>Sunny</Text>
+        </View>
       </View>
     </View>
   );
@@ -31,6 +34,11 @@ const styles = StyleSheet.create({
   },
   weather:{
     flex: 3 ,
-  
-  }
+  },
+  day: {
+    flex: 1,
+    backgroundColor:'teal',
+    justifyContent:'center',
+    alignItems:'center',
+  },
 });
