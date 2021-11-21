@@ -6,7 +6,10 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.city}>
-        <Text>Seoul</Text>
+        <Text style={styles.cityName}>Seoul</Text>
+      </View>
+      <View style={styles.weather}>
+        <Text></Text>
       </View>
     </View>
   );
@@ -19,6 +22,15 @@ const styles = StyleSheet.create({
   },
   city:{
     flex: 1,
-    backgroundColor:"blue",
+    justifyContent: 'center',
+    alignItems:'center',
   },  
+  cityName:{
+    fontSize: 68,
+    fontWeight: "500",
+  },
+  weather:{
+    flex: 3 ,
+  
+  }
 });
