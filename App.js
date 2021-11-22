@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import * as Location from 'expo-location';
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
 
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
@@ -8,6 +8,16 @@ const {width: SCREEN_WIDTH} = Dimensions.get('window');
 export default function App() {
   const [location, setLocation] = useState();
   const [ok, setOK] = useState(true);
+    const ask = async() => {
+      const { granted } = await Location.requestForegroundPermissionsAsync(); // 앱 사용중에만 위치정보권한을 사용하는 requestForegroundPermissionAsync()
+      if(!granted) { // 위치정보 권한을 거절하면
+        setOk(false); // setOk = false 로 설정
+      }
+    };
+  // After Rendering ask 함수를 호출하는 useEffect 함수 생성
+  useEffect(() => {
+    ask();
+  }, []);
   return (
     <View style={styles.container}>
       <View style={styles.city}>
