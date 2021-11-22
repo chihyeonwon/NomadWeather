@@ -1,10 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+import * as Location from 'expo-location';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
 
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
 
 export default function App() {
+  const [location, setLocation] = useState();
+  const [ok, setOK] = useState(true);
   return (
     <View style={styles.container}>
       <View style={styles.city}>
