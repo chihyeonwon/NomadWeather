@@ -1,6 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
+
+const {width: SCREEN_WIDTH} = Dimensions.get('window');
 
 export default function App() {
   return (
@@ -53,10 +55,12 @@ const styles = StyleSheet.create({
     fontWeight: "500",
   },
   weather:{
-    backgroundColor:'blue',
+  
   },
   day: {
+    width: SCREEN_WIDTH,
     alignItems:'center',
+    
   },
   temp: {
     marginTop: 50,
