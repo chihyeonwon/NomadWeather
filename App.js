@@ -8,8 +8,8 @@ const {width: SCREEN_WIDTH} = Dimensions.get('window');
 export default function App() {
   const [location, setLocation] = useState();
   const [ok, setOK] = useState(true);
-    const ask = async() => {
-      const { granted } = await Location.requestForegroundPermissionsAsync(); // 앱 사용중에만 위치정보권한을 사용하는 requestForegroundPermissionAsync()
+  const ask = async() => {
+      const { granted } = await Location.requestForegroundPermissionsAsync(); // 앱 사용중에만 위치정보권한을 요청하는 requestForegroundPermissionAsync()
       if(!granted) { // 위치정보 권한을 거절하면
         setOk(false); // setOk = false 로 설정
       }
