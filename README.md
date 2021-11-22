@@ -150,5 +150,73 @@ ScrollView의 style을 contentContainerStyle로 수정한다.
 ```javascript
 <ScrollView horizontal contentContainerStyle={styles.weather}>
 ```
-     
-  
+
+## Dimensions로 사용자의 디바이스의 크기를 측정
+
+react-native의 Dimensions를 import한다.
+```javascript
+import {Dimensions} from 'react-native';
+```
+
+사용자 디바이스의 가로 너비를 Dimensions의 get 메서드로 구한 뒤 SCREEN_WIDTH에 저장한다.
+```javascript
+const {width: SCREEN_WIDTH} = Dimensions.get('window');
+```  
+
+SCREEN_WIDTH를 여러개의 day에 적용한다.
+```javascript
+day:{
+  width: SCREEN_WIDTH,
+  alignItems: 'center',
+}
+```
+#### ScrollView에 pagingEnabled 속성을 추가하여 스크롤의 이동을 제한한다.
+
+```javascript
+<ScrollView pagingEnabled horizontal contentContainerStyle={styles.weather}>
+```
+#### ScrollView에 showHorizontalScrollIndicator={false}를 설정하여 Scroll Indicator를 제거
+
+```javascript
+<ScrollView pagingEnabled horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.weather}>
+```
+## 사용자의 위치 정보를 가져오기
+
+다음 명령을 터미널에서 실행하여 expo가 제공하는 위치정보 API를 설치한다.
+```javascript
+expo install expo-location
+```
+
+expo-location에서 제공하는 Location을 import한다.
+```javascript
+import {Location} from 'expo-location';
+```
+### 사용자의 권한 요청
+
+개발문서 https://docs.expo.dev/versions/latest/sdk/location/#locationrequestpermissionsasync 의 Usage 탭에서 사용자의 권한을 요청하는 requestPermissionAsync()
+
+#### 위치 정보의 상태를 useState 함수에 저장
+
+```javascript
+const [location, setLocation] = useState();
+const [ok, setOK] = useState(true);
+```
+
+#### 렌더링 된 후 ask 함수를 호출하는 useEffect 함수 생성
+
+```javascript
+useEffect(() => {
+    ask();
+  }, []);
+```
+
+#### ask 함수가 호출되면 앱 사용중에만 위치정보권한을 요청하는 requestForegroundPermissionsAsync() 함수를 호출
+```javascript
+const ask = async() => {
+    const { granted } = await Location.requestForegroundPermissionsAsync(); // 앱 사용중에만 위치정보권한을 사용하는 requestForegroundPermissionAsync()
+    if(!granted) { // 위치정보 권한을 거절하면
+      setOk(false); // setOk = false 로 설정
+    }
+  };
+```
+
