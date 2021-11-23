@@ -13,8 +13,9 @@ export default function App() {
       if(!granted) { // 위치정보 권한을 거절하면
         setOk(false); // setOk = false 로 설정
       }
+      Location.setGoogleApiKey('AIzaSyAdBvn3eGqxvDLTcNo22TVPoBpn3KGXJgA');
       const {coords:{latitude, longitude}} = await Location.getCurrentPositionAsync({accuracy: 5});
-      // latitude, longitude 로 reverse geocoding 
+      // latitude, longitude 로 reverse geocoding
       const location = await Location.reverseGeocodeAsync({latitude, longitude}, {useGoogleMaps: false});
   };
   // After Rendering ask 함수를 호출하는 useEffect 함수 생성
