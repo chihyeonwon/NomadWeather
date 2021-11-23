@@ -219,4 +219,44 @@ const ask = async() => {
     }
   };
 ```
+## 사용자 위치 정보 획득
+
+#### getCurrentPositionAsync 함수를 사용하여 사용자의 현재 위치에 대한 경도와 위도를 얻기
+
+다음 코드를 실행하여 latitude와 longitude를 얻는다. accuracy는 1 ~ 6의 정확도값을 얻는 속성값이다.
+```javascript
+const {coords:{latitude, longitude}} = await Location.getCurrentPositionAsync({accuracy: 5});
+```
+
+#### reverse Geocoding 사용하기
+
+얻은 사용자 위치의 latitdude와 longitude로 reverse geocoding을 하여 사용자가 위치한 지역의 country, district, isoCountryCode, name, postalCode, region를 가지는 객체를 배열의 형태로 사질 수 있다.
+
+#### reverseGeocodeAsync 함수의 사용에 앞서 Google Platform 에서 Geolocation API key를 발급받는다.
+
+발급받은 키를 다음과 같이 Location.setGoogleApiKey의 매개변수로 전달한다.
+```javascript
+Location.setGoogleApiKey('발급받은 키(영문자,대문자,숫자로 이루어짐)')
+```
+
+API key 설정이 끝나면 reverseGeocodeAsync 함수의 첫번째 매개변수로 얻은 latitude, longitude 값을 넣고 두번째 매개변수로 useGoogleMaps 속성의 값을 false로 설정한다.
+```javascript
+const location = await Location.reverseGeocodeAsync({latitude, longitude}, {useGoogleMaps: false});
+```
+
+useState를 사용하여 city, setCity의 초기화면을 ...Loading 으로 설정한다.
+```javascript
+const [city, setCity] = useState("...Loading");
+```
+
+setCity의 매개변수로 얻은 객체 중 region 값을 location[0].region으로 전달한다.
+```javascript
+setCity(location[0].region
+```
+
+얻은 region 값을 다시 본문의 고정된 city 값을 useState를 사용한 {city}로 전달한다.
+```javascript
+<Text style={styles.cityName}>{city}</Text>
+```
+
 
