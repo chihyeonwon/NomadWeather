@@ -259,4 +259,26 @@ setCity(location[0].region
 <Text style={styles.cityName}>{city}</Text>
 ```
 
+## 날씨 정보 얻기
 
+https://home.openweathermap.org/api_keys 에서 api를 받아와서 API_KEY에 저장한다.
+
+```javascript
+const API_KEY ="발급받은 api키값";
+```
+
+https://openweathermap.org/api/one-call-api 에서 API call의 코드를 복사해서 붙여넣고 앞서 얻은 latitude, longitude, API_KEY 값을 넣어준다.
+```javascript
+ const response = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude={part}&appid=${API_KEY}`);
+ ```
+ 
+ 위의 exclude 속성은 minute, hour alert 등 얻는 값중에 제외할 값을 설정할 수 있는데 이때는 alert를 제외한다.
+ ```javascript
+ const response = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=alerts&appid=${API_KEY}`);
+ ```
+ 
+ json 변수에 response.json()으로 api에서 얻은 데이터를 저장한다.
+ ```javascript
+ const json = await response.json();
+ ```
+ 
