@@ -21,6 +21,8 @@ export default function App() {
       // latitude, longitude 로 reverse geocoding
       const location = await Location.reverseGeocodeAsync({latitude, longitude}, {useGoogleMaps: false});
       setCity(location[0].region);
+      const response = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude={part}&appid=${API_KEY}`);
+
   };
   // After Rendering ask 함수를 호출하는 useEffect 함수 생성
   useEffect(() => {
