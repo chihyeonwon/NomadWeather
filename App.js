@@ -3,6 +3,9 @@ import * as Location from 'expo-location';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
 
+// https://home.openweathermap.org/api_keys에서 api 키를 발급받는다.
+const API_KEY = "79a66d36cd902abff8647cae058f2a45";
+
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
 
 export default function App() {
