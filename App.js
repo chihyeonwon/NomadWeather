@@ -7,13 +7,16 @@ const {width: SCREEN_WIDTH} = Dimensions.get('window');
 
 export default function App() {
   const [location, setLocation] = useState();
-  const [ok, setOK] = useState(true);
+  const [ok, setOk] = useState(true);
   const ask = async() => {
       const { granted } = await Location.requestForegroundPermissionsAsync(); // 앱 사용중에만 위치정보권한을 요청하는 requestForegroundPermissionAsync()
       if(!granted) { // 위치정보 권한을 거절하면
         setOk(false); // setOk = false 로 설정
       }
-    };
+      const {coords:{latitude, longitude}} = await Location.getCurrentPositionAsync({accuracy: 5});
+      // latitude, longitude 로 reverse geocoding 
+      const location = await Location.reverseGeocodeAsync({latitude, longitude}, {useGoogleMaps: false});
+  };
   // After Rendering ask 함수를 호출하는 useEffect 함수 생성
   useEffect(() => {
     ask();
