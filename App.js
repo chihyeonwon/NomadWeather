@@ -7,7 +7,6 @@ const {width: SCREEN_WIDTH} = Dimensions.get('window');
 
 export default function App() {
   const [city, setCity] = useState("...Loading");
-  const [location, setLocation] = useState();
   const [ok, setOk] = useState(true);
   const getWeather = async() => {
       const { granted } = await Location.requestForegroundPermissionsAsync(); // 앱 사용중에만 위치정보권한을 요청하는 requestForegroundPermissionAsync()
