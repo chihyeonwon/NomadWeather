@@ -6,6 +6,7 @@ import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
 const {width: SCREEN_WIDTH} = Dimensions.get('window');
 
 export default function App() {
+  const [city, setCity] = useState("...Loading");
   const [location, setLocation] = useState();
   const [ok, setOk] = useState(true);
   const ask = async() => {
