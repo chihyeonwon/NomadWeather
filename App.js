@@ -9,7 +9,7 @@ export default function App() {
   const [city, setCity] = useState("...Loading");
   const [location, setLocation] = useState();
   const [ok, setOk] = useState(true);
-  const ask = async() => {
+  const getWeather = async() => {
       const { granted } = await Location.requestForegroundPermissionsAsync(); // 앱 사용중에만 위치정보권한을 요청하는 requestForegroundPermissionAsync()
       if(!granted) { // 위치정보 권한을 거절하면
         setOk(false); // setOk = false 로 설정
@@ -22,7 +22,7 @@ export default function App() {
   };
   // After Rendering ask 함수를 호출하는 useEffect 함수 생성
   useEffect(() => {
-    ask();
+    getWeather();
   }, []);
   return (
     <View style={styles.container}>
