@@ -18,6 +18,7 @@ export default function App() {
       const {coords:{latitude, longitude}} = await Location.getCurrentPositionAsync({accuracy: 5});
       // latitude, longitude 로 reverse geocoding
       const location = await Location.reverseGeocodeAsync({latitude, longitude}, {useGoogleMaps: false});
+      setCity(location[0].region);
   };
   // After Rendering ask 함수를 호출하는 useEffect 함수 생성
   useEffect(() => {
@@ -26,7 +27,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.city}>
-        <Text style={styles.cityName}>Seoul</Text>
+        <Text style={styles.cityName}>{city}</Text>
       </View>
       <ScrollView pagingEnabled horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.weather}>
         <View style={styles.day}>
