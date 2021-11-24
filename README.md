@@ -281,4 +281,40 @@ https://openweathermap.org/api/one-call-api 에서 API call의 코드를 복사�
  ```javascript
  const json = await response.json();
  ```
+ 빈 배열 상태인 useState에 날짜 배열정보를 넣고
+ ```javascript
+ const [days, setDays] = useState([]);
+ ```
  
+ 날짜 json.daily setDays의 useState에 셋팅한다.
+ ```javascript 
+  setDays(json.daily);
+ ```
+ 
+ 기존의 day를 모두 삭제하고 삼항연산자로 days의 배열의 길이가 0 이면 ActivityIndicator 를 사용해 로딩 중 표시를 하고 배열의 길이가 0이 아닐때는 날씨 정보를 보여주도록 변경한다. 
+ ```javascript
+ <ScrollView pagingEnabled horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.weather}>
+        {days.length === 0 ? (
+          <View style={styles.day}>
+            <ActivityIndicator
+              color="white"
+              style={{ marginTop: 10 }}
+              size="large"
+            />
+          </View>
+        ) : (
+          days.map((day, index) => (
+            <View key={index} style={styles.day}>
+              <Text>
+                  {new Date(day.dt * 1000).toString().substring(0, 10)}
+              </Text>
+              <Text style={styles.temp}>
+                {parseFloat(day.temp.day).toFixed(1)}
+              </Text>
+              <Text style={styles.des}>{day.weather[0].main}</Text>
+              <Text style={styles.tinyText}>{day.weather[0].description}</Text>
+            </View>
+          ))
+        )}
+      </ScrollView>
+  ```
