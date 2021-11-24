@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import * as Location from 'expo-location';
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Dimensions, ActivityIndicator } from 'react-native';
 
 // https://home.openweathermap.org/api_keys에서 api 키를 발급받는다.
 const API_KEY = "79a66d36cd902abff8647cae058f2a45";
@@ -22,10 +22,12 @@ export default function App() {
       // latitude, longitude 로 reverse geocoding
       const location = await Location.reverseGeocodeAsync({latitude, longitude}, {useGoogleMaps: false});
       setCity(location[0].region);
-      const response = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=alerts&appid=${API_KEY}`);
+      const response = await fetch(
+      `https://api.openweathermap.org/data/2.5/onecall?lat=${latitude}&lon=${longitude}&exclude=alerts&appid=${API_KEY}&units=metric`
+       );
       const json = await response.json();
-      // setDays(json.daily);
-  };
+      setDays(json.daily);
+    };
   // After Rendering ask 함수를 호출하는 useEffect 함수 생성
   useEffect(() => {
     getWeather();
@@ -36,15 +38,32 @@ export default function App() {
         <Text style={styles.cityName}>{city}</Text>
       </View>
       <ScrollView pagingEnabled horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.weather}>
-        <View style={styles.day}>
-          <Text style={styles.temp}>27</Text>
-          <Text style={styles.desc}>Sunny</Text>
-        </View>
+        {days.length === 0 ? (
+          <View style={styles.day}>
+            <ActivityIndicator
+              color="white"
+              style={{ marginTop: 10 }}
+              size="large"
+            />
+          </View>
+        ) : (
+          days.map((day, index) => (
+            <View key={index} style={styles.day}>
+              <Text>
+                  {new Date(day.dt * 1000).toString().substring(0, 10)}
+              </Text>
+              <Text style={styles.temp}>
+                {parseFloat(day.temp.day).toFixed(1)}
+              </Text>
+              <Text style={styles.des}>{day.weather[0].main}</Text>
+              <Text style={styles.tinyText}>{day.weather[0].description}</Text>
+            </View>
+          ))
+        )}
       </ScrollView>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,  
@@ -74,5 +93,8 @@ const styles = StyleSheet.create({
   desc: {
     marginTop: -30,
     fontSize: 60,
-  }
+  },
+  tinyText: {
+    fontSize: 20,
+  },
 });
